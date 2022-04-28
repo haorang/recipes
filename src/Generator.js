@@ -31,7 +31,7 @@ function Generator(){
             const openai = new OpenAIApi(configuration);
             const resp = await openai.createCompletion("text-davinci-002", {
                 prompt: prompt,
-                max_tokens: 2000,
+                max_tokens: 1000,
                 });
             console.log(resp)
             console.log(resp.data.choices[0].text)
