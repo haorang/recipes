@@ -90,7 +90,7 @@ function Generator(){
     const [ingredients, setIngredients] = useState("")
     const [apikey, setApikey] = useState("")
     const [nameMode, setNameMode] = useState(false)
-    const [recipeText, setRecipeText] = useState("Enter ingredients above (2-3 works best) and click generate!");
+    const [recipeText, setRecipeText] = useState("Enter ingredients (or dish name in name mode) above and click generate!");
 
     const onIngredientsChange = e => {
         setIngredients(e.target.value)
@@ -135,7 +135,7 @@ function Generator(){
     return (
       <div className=" transition bg-beige rounded-sm object-center content-center relative w-6/12
        border-solid border-2 border-transparent rounded flex justify-center items-center flex-col text-left" >
-           <div className="pl-2 mx-5 text-aqua ">Generate recipes below by entering ingredients (or a dish name in name mode) seperated by a commas in the textbox below. Fill in your OpenAI API key and click generate! If you don't have a key click <a className="text-rat" target="_blank" href="https://beta.openai.com/account/api-keys">here</a> to sign up. </div>
+           <div className="pl-2 mx-5 text-aqua mb-4 ">Generate recipes below by entering ingredients (or a dish name in name mode) seperated by a commas in the textbox below. Fill in your OpenAI API key and click generate! If you don't have a key click <a className="text-rat" target="_blank" href="https://beta.openai.com/account/api-keys">here</a> to sign up. </div>
            <div className="flex flex-row self-start mx-5">
             <div className="p-2 mr-2 text-aqua">{nameMode? "Name of dish:" : "Ingredients to use"}</div>
             <input
