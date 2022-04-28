@@ -3,6 +3,48 @@ import loadIcon from './ratload.gif'
 
 const { Configuration, OpenAIApi } = require("openai");
 function Generator(){
+    const ingredientPrompt='Ingredients:\n'+
+    'flour, salt, baking soda, butter, sugar, egg, milk, vanilla extract\n'+
+    '\n'+
+    'Name: Sugar Cookies\n'+
+    '\n'+
+    'Recipe:\n'+
+    '1. Whisk flour, salt, and baking soda together in a bowl. In a separate bowl, cream the butter, white sugar, and brown sugar together until mixture is light and fluffy, 3 to 4 minutes. Add the egg, milk, and vanilla extract. Whisk liquids together in small areas around the bowl, then all together to avoid separation.\n'+
+    '\n'+
+    '2. Pour dry ingredients into the wet ingredients; stir until flour is thoroughly mixed in. Stir in the chocolate chips.\n'+
+    '\n'+
+    '3. Transfer dough to a resealable plastic bag. Refrigerate until dough is firm, at least 2 hours.\n'+
+    '\n'+
+    '4. Preheat oven to 375 degrees F (190 degrees C). Line baking sheet with parchment paper.\n'+
+    '\n'+
+    '5. Scoop out rounded tablespoons of dough and place on prepared baking sheet, leaving 4 inches of space between cookies (about 8 per sheet). Bake in preheated oven until cookies are golden brown, about 12 minutes. Slide parchment and cookies onto a cooling rack for a few minutes. Remove parchment and finish cooling the cookies on the rack.\n'+
+    '\n'+
+    'Ingredients:\n'+
+    'butter, shrimp, olive oil, pepper, salt, shallots, linguine, red pepper flakes, garlic, shallots\n'+
+    '\n'+
+    'Name: Shrimp Scampi\n'+
+    '\n'+
+    'Recipe:\n'+
+    '1. Bring a large pot of salted water to a boil; cook linguine in boiling water until nearly tender, 6 to 8 minutes. Drain.\n'+
+    '\n'+
+    '2. Melt 2 tablespoons butter with 2 tablespoons olive oil in a large skillet over medium heat. Cook and stir shallots, garlic, and red pepper flakes in the hot butter and oil until shallots are translucent, 3 to 4 minutes. Season shrimp with kosher salt and black pepper; add to the skillet and cook until pink, stirring occasionally, 2 to 3 minutes. Remove shrimp from skillet and keep warm.\n'+
+    '\n'+
+    '3. Pour white wine and lemon juice into skillet and bring to a boil while scraping the browned bits of food off of the bottom of the skillet with a wooden spoon. Melt 2 tablespoons butter in skillet, stir 2 tablespoons olive oil into butter mixture, and bring to a simmer. Toss linguine, shrimp, and parsley in the butter mixture until coated; season with salt and black pepper. Drizzle with 1 teaspoon olive oil to serve.\n'+
+    '\n'+
+    'Ingredients:\n'+
+    'cooked chicken, spaghetti, cream of mushroom soup, cheddar cheese, green pepper, onion, pimentos, chicken broth, cayenne pepper, salt, pepper\n'+
+    '\n'+
+    'Name: Chicken Spaghetti\n'+
+    '\n'+
+    'Recipe:\n'+
+    '1. Cook 1 cut up fryer and pick out the meat to make two cups. \n'+
+    '2. Cook spaghetti in same chicken broth until al dente. Do not overcook. When spaghetti is cooked, combine with remaining ingredients except additional 1 cup sharp cheddar.\n'+
+    '3. Place mixture in casserole pan and top with remaining sharp cheddar. Cover and freeze up to six months, cover and refrigerate up to two days, or bake immediately: 350 degrees for 45 minutes until bubbly. (If the cheese on top starts to get too cooked, cover with foil).\n'+
+    '\n'+
+    'Ingredients:\n';
+
+
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false)
     const [ingredients, setIngredients] = useState("")
@@ -22,20 +64,20 @@ function Generator(){
         setError(null);
     
         try {
-            const tokens = ingredients.split(" ")
-            const commaSep = tokens.join(", ")
-            const prompt = ("Ingredients:\n " + commaSep).trim()
+            // const tokens = ingredients.split(" ")
+            // const commaSep = tokens.join(", ") + ","
+            const prompt = (ingredientPrompt + ingredients).trim() + ","
             const configuration = new Configuration({
                 apiKey: apikey,
                 });
             const openai = new OpenAIApi(configuration);
             const resp = await openai.createCompletion("text-davinci-002", {
                 prompt: prompt,
-                max_tokens: 1000,
+                max_tokens: 300,
                 });
             console.log(resp)
             console.log(resp.data.choices[0].text)
-            setRecipeText(prompt + resp.data.choices[0].text);
+            setRecipeText("Ingredients:\n"+ ingredients + "," + resp.data.choices[0].text);
             setLoading(false);
         } catch (e) {
             setRecipeText("")
