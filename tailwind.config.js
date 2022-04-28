@@ -13,7 +13,8 @@ module.exports = {
       'purple': '#9a73ff',
       'aqua': '#55917f',
       'hover': '#75A999',
-      'darker': '#396759'
+      'darker': '#396759',
+      'rat': "#d68c45"
     },
     extend: {
       fontFamily: {
